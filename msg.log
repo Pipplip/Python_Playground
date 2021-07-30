@@ -1,0 +1,9 @@
+2021-07-08 15:03:34,638 root - WARNING - Warning wird in einer Datei gespeichert
+2021-07-08 15:03:34,638 root - WARNING - Name Variable wird geloggt
+2021-07-08 15:03:34,638 root - ERROR - Exception: division by zero
+Traceback (most recent call last):
+  File "c:\Users\Philipp Becker\Desktop\Einführung in P\Code\21-Logging.py", line 35, in <module>
+    c = a/b
+ZeroDivisionError: division by zero
+2021-07-08 15:03:34,639 Funktionsname f() - DEBUG - Log in der Funktion
+2021-07-08 15:03:34,640 meinLogger - DEBUG - Mein FileHandler Log
