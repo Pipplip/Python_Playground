@@ -54,6 +54,10 @@ def handle_keys(direction):
             new_direction = Direction.RIGHT
         if event.key == pygame.K_LEFT and direction != Direction.RIGHT:
             new_direction = Direction.LEFT
+        if event.key == pygame.K_q:
+            pygame.quit()
+            exit(0)
+
     return new_direction
 
 def move_snake(direction):
@@ -135,7 +139,7 @@ def game_loop():
         paint_hud()
         pygame.display.update()
         refresh_controller.tick(speed) # speed = refresh Wert
-        #time.sleep(0.2)
+        #time.sleep(1)
 
 
 if __name__ == "__main__":
