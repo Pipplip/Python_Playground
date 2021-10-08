@@ -1,11 +1,11 @@
 ''' https://www.youtube.com/watch?v=UZg49z76cLw 
-22 min
+23 min
 '''
 
 import pygame, sys
 from pygame.constants import QUIT
 
-screen_width = 600
+screen_width = 400
 screen_height = 600
 
 ''' 1 -  pygame Initialisieren '''
@@ -20,8 +20,12 @@ clock = pygame.time.Clock()
 fps = 120
 
 ''' 3 - Surface erstellen (s. unten Beschreibung) '''
-bg_surface = pygame.image.load('assets/background.png').convert()
-bg_surface = pygame.transform.scale2x(bg_surface) # multipliziert das Bild um den Faktor 2
+bg_surface = pygame.image.load('assets/sprites/background-day.png').convert()
+#bg_surface = pygame.transform.scale2x(bg_surface) # multipliziert das Bild um den Faktor 2
+bg_surface = pygame.transform.scale(bg_surface, (screen_width, screen_height))
+
+floor_surface = pygame.image.load('assets/sprites/base.png').convert()
+floor_surface = pygame.transform.scale(floor_surface, (screen_width, 112))
 
 ''' 4 -  gameloop erstellen
 Hier wird das Canvas repainted und die Logik des Spiels ist dort enthalten '''
@@ -34,6 +38,7 @@ while True:
 
     ''' 3 - Surface auf das Display Surface packen '''
     screen.blit(bg_surface,(0,0)) # (0,0) Koordinatenursprung
+    screen.blit(floor_surface, (0,0))
 
     ''' 4b: Canvas updaten '''
     pygame.display.update()
