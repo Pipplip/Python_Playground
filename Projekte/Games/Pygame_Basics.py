@@ -22,6 +22,7 @@ fps = 120
 ''' 3 - Surface erstellen (s. unten Beschreibung) '''
 bg_surface = pygame.image.load('assets/background.png').convert()
 bg_surface = pygame.transform.scale2x(bg_surface) # multipliziert das Bild um den Faktor 2
+bg_surface = pygame.transform.scale(bg_surface, (screen_width, screen_height)) # skaliert auf screen Groesse
 
 ''' 4 -  gameloop erstellen
 Hier wird das Canvas repainted und die Logik des Spiels ist dort enthalten '''
