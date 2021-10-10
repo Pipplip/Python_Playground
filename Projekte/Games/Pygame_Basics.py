@@ -32,6 +32,9 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+        if event.type == pygame.KEYDOWN: # alle Tastendrücke abfangen
+            if event.key == pygame.K_SPACE:
+              print("Space gedrückt")
 
     ''' 3 - Surface auf das Display Surface packen '''
     screen.blit(bg_surface,(0,0)) # (0,0) Koordinatenursprung
@@ -50,5 +53,14 @@ rS kann man so viele wie gewünscht erstellen.
 Ein rS wird nur angezeigt, wenn es dem DS zugeorndet wird.
 Will man z.B. ein Bild einfügen. Nimmt man für das Bild ein neues rS.
 
+Rectangles:
+Quadrate werden bevorzugt benutzt, um Objekte im Spiel zu simulieren,
+wie z.B. den Hauptcharakter.
+Vorteil: Kollisionen lassen sich einfacher berechnen und die Position
+eines Objekts lässt sich besser ansetzen. Auch z.B. Rotation.
+Bsp: 
+pygame.Rect(width, height,x,y)
+oder besser surface.get_rect(rect_position) # hier wird ein Rect um das
+Objekt gelegt.
 
 '''
