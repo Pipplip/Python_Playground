@@ -63,4 +63,15 @@ pygame.Rect(width, height,x,y)
 oder besser surface.get_rect(rect_position) # hier wird ein Rect um das
 Objekt gelegt.
 
+Text in pygame: (Achtung: fonts immer nach pygame.init angeben!)
+1. create a font (style,size) z.B. game_font = pygame.font.Font('048_19.ttf',40) oder game_font = pygame.font.SysFont('Arial',40) # (style,size)
+2. render the font (text,colour) to a surface z.B. surface = game_font.render('Score',True,(255,255,255))
+3. use the resulting text surface
+
+Sound:
+flap_sound = pygame.mixer.Sound('assets/audio/wing.wav')
+flap_sound.play()
+# Um delay vom Sound zu verhindern, muss vor:
+pygame.init()
+pygame.mixer.pre_init(...Parameter) hin
 '''
