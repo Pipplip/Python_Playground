@@ -28,7 +28,10 @@ def draw_grid():
 def calc_block(coordinates,clicked_block_color):
     x = int(coordinates[0] / block_size)
     y = int(coordinates[1] / block_size)
-    rect = pygame.Rect(x*block_size+grid_line_size, y*block_size+grid_line_size, block_size-(grid_line_size*2), block_size-(grid_line_size*2))
+    print("x=" + str(x) + " y=" +str(y))
+    print("  x="+str(int(x*block_size)) + " y="+str(int(y*block_size)))
+    rect = pygame.Rect(int(x*block_size)+grid_line_size, int(y*block_size)+grid_line_size, block_size-grid_line_size, block_size-grid_line_size)
+    #rect = pygame.Rect(x*block_size+grid_line_size, y*block_size+grid_line_size, block_size-(grid_line_size*2), block_size-(grid_line_size*2))
     color = change_color(clicked_block_color)
     pygame.draw.rect(screen, color, rect)
     #print("x=" + str(x) + " y=" +str(y))
@@ -47,12 +50,12 @@ def is_alive(block_coord_x, block_coord_y):
     x = block_coord_x
     y = block_coord_y
     if (x + grid_line_size) > screen_width:
-        x = block_coord_x - grid_line_size
+        return False
     else:
         x = block_coord_x + grid_line_size
 
     if (y + grid_line_size) > screen_height:
-        y = block_coord_y - grid_line_size
+        return False
     else:
         y = block_coord_y + grid_line_size
 
@@ -112,15 +115,24 @@ def check_live(block_coord_x, block_coord_y,status):
     if status == False and count_of_living_neighbors == 3:
         return True
 
-    return status
+    return False
 
 ''' Grid Linien zeichnen (nur einmal zeichnen) '''
 draw_grid()
 
 # for test
-#calc_block((21,1), BLACK)
-#calc_block((21,21), BLACK)
-#calc_block((1,21), BLACK)
+calc_block((21,1), BLACK)
+calc_block((21,21), BLACK)
+calc_block((1,21), BLACK)
+
+calc_block((541,1), BLACK)
+calc_block((561,1), BLACK)
+calc_block((581,1), BLACK)
+calc_block((541,21), BLACK)
+calc_block((561,21), BLACK)
+calc_block((581,21), BLACK)
+
+#calc_block((581,1),BLACK)
 
 ''' gameloop'''
 while True:
