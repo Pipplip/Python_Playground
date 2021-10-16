@@ -89,11 +89,11 @@ def check_live(block_coord_x, block_coord_y,status):
     return status
 
 def create_r_pentomino():
-    dict_cubes[(304,297)] = ORANGE
-    dict_cubes[(304,287)] = ORANGE
-    dict_cubes[(314,287)] = ORANGE
-    dict_cubes[(294,297)] = ORANGE
-    dict_cubes[(304,307)] = ORANGE
+    dict_cubes[(300,300)] = ORANGE
+    dict_cubes[(300,290)] = ORANGE
+    dict_cubes[(310,290)] = ORANGE
+    dict_cubes[(290,300)] = ORANGE
+    dict_cubes[(300,310)] = ORANGE
 
 def calc_round_to_fix_int(coord):
     return int(coord / block_size) * block_size
@@ -153,6 +153,7 @@ while True:
 
     ''' Berechne Zellen '''
     # 2 Infos werden benötigt - eigene Zellen-Zustand und Anzahl an lebendigen Nachbarn
+    
     dict_cubes_tmp = deepcopy(dict_cubes)
     for y in range(0, screen_height, block_size):
         for x in range(0, screen_width, block_size):
@@ -171,7 +172,7 @@ while True:
         for x in range(0, screen_width, block_size):
             rect = pygame.Rect(x+grid_line_size, y+grid_line_size, block_size-grid_line_size, block_size-grid_line_size)
             cube_color = dict_cubes.get((x,y))
-            print(f"{x}, {y} - {cube_color}")
+            #print(f"{x}, {y} - {cube_color}")
             pygame.draw.rect(screen, cube_color, rect)
       
 
