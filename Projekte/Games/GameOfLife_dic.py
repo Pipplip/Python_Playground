@@ -1,11 +1,12 @@
 import pygame, sys, time, random
 from pygame.constants import QUIT
+from copy import deepcopy
 
 screen_width = 600
 screen_height = 600
-block_size = 60 #Set the size of the grid block
+block_size = 10 #Set the size of the grid block
 grid_line_size = 1
-random_blocks = 2000
+random_blocks = 200
 
 dict_cubes = {} # { (0,0) : BLACK, (1,1) : ORANGE}
 
@@ -20,7 +21,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 
 ''' fps einstellen '''
 clock = pygame.time.Clock()
-fps = 15
+fps = 1
 
 def draw_grid():
     for x in range(0, screen_width, block_size):
@@ -28,47 +29,12 @@ def draw_grid():
             rect = pygame.Rect(x, y, block_size, block_size)
             pygame.draw.rect(screen, GREY, rect, grid_line_size)
 
-def set_block(coordinates,clicked_block_color):
-    x = int(coordinates[0] / block_size)
-    y = int(coordinates[1] / block_size)
-    #print("x=" + str(x) + " y=" +str(y))
-    #print("  x="+str(int(x*block_size)) + " y="+str(int(y*block_size)))
-    rect = pygame.Rect(int(x*block_size)+grid_line_size, int(y*block_size)+grid_line_size, block_size-grid_line_size, block_size-grid_line_size)
-    #rect = pygame.Rect(x*block_size+grid_line_size, y*block_size+grid_line_size, block_size-(grid_line_size*2), block_size-(grid_line_size*2))
-    color = change_color(clicked_block_color)
-    pygame.draw.rect(screen, color, rect)
-    #print("x=" + str(x) + " y=" +str(y))
-
-def change_color(color):
-    #print(str(color))
-    new_color = color
-    if color[0] == BLACK[0] and color[1] == BLACK[1] and color[2] == BLACK[2]:
-        new_color = ORANGE
-    elif color[0] == ORANGE[0] and color[1] == ORANGE[1] and color[2] == ORANGE[2]:
-        new_color = BLACK
-    return new_color
-
 def is_alive(block_coord_x, block_coord_y):
     ''' prüft ob eine Zelle lebt oder nicht '''
-    x = block_coord_x
-    y = block_coord_y
-    if (x + grid_line_size) > screen_width:
+    color = dict_cubes.get((block_coord_x,block_coord_y))
+    if color == BLACK:
         return False
     else:
-        x = block_coord_x + grid_line_size
-
-    if (y + grid_line_size) > screen_height:
-        return False
-    else:
-        y = block_coord_y + grid_line_size
-
-    color = pygame.Surface.get_at(screen,(x,y))
-    #print(f"x={x}, y={y}, color={color}")
-
-    if color[0] == BLACK[0] and color[1] == BLACK[1] and color[2] == BLACK[2]:
-        return False
-    else:
-        #print(f"Alive - x:{x}, y={y}")
         return True
 
 
@@ -113,6 +79,8 @@ def check_live(block_coord_x, block_coord_y,status):
             return True
         elif count_of_living_neighbors > 3:
             return False
+        else:
+            return False
 
     else:
         if count_of_living_neighbors == 3:
@@ -121,34 +89,40 @@ def check_live(block_coord_x, block_coord_y,status):
     return status
 
 def create_r_pentomino():
-    set_block((304,297),BLACK)
-    set_block((304,287),BLACK)
-    set_block((314,287),BLACK)
-    set_block((294,297),BLACK)
-    set_block((304,307),BLACK)
+    dict_cubes[(304,297)] = ORANGE
+    dict_cubes[(304,287)] = ORANGE
+    dict_cubes[(314,287)] = ORANGE
+    dict_cubes[(294,297)] = ORANGE
+    dict_cubes[(304,307)] = ORANGE
+
+def calc_round_to_fix_int(coord):
+    return int(coord / block_size) * block_size
 
 def create_random_blocks():
     amount_of_random_blocks = random.randint(1,random_blocks)
+    list_random_coord = []
     for i in range(amount_of_random_blocks):
         x_random = random.randint(0+grid_line_size,screen_width-grid_line_size)
         y_random = random.randint(0+grid_line_size,screen_height-grid_line_size)
-        set_block((x_random,y_random),BLACK)
+        list_random_coord.append([calc_round_to_fix_int(x_random),calc_round_to_fix_int(y_random)])
+    
+    for list_item in list_random_coord:
+        dict_cubes[(list_item[0],list_item[1])] = ORANGE
+        #print(str(list_item[0]) + " - "+ str(list_item[1]))
 
+def init_empty_dict():
+    for y in range(0, screen_height, block_size):
+        for x in range(0, screen_width, block_size):
+            dict_cubes[(x,y)] = BLACK
 
 ''' Grid Linien zeichnen (nur einmal zeichnen) '''
 draw_grid()
-
+init_empty_dict()
 #create_random_blocks()
-#create_r_pentomino()
+create_r_pentomino()
 
+#print(dict_cubes)
 
-# for test
-##set_block((21,1), BLACK)
-#set_block((21,21), BLACK)
-#set_block((1,21), BLACK)
-
-
-#calc_block((581,1),BLACK)
 
 ''' gameloop'''
 while True:
@@ -165,34 +139,41 @@ while True:
             clicked_block_color = pygame.Surface.get_at(screen,(coordinates[0],coordinates[1]))
             # click auf Grid Linien ignorieren
             if clicked_block_color[0] != GREY[0] and clicked_block_color[0] != GREY[0] and clicked_block_color[0] != GREY[0]:
-                set_block(coordinates,clicked_block_color)
+                x = calc_round_to_fix_int(coordinates[0])
+                y = calc_round_to_fix_int(coordinates[1])
+                color = dict_cubes.get((x,y))
+                if color[0] == BLACK[0] and color[1] == BLACK[1] and color[1] == BLACK[1]:
+                    color = ORANGE
+                else:
+                    color = BLACK
+                dict_cubes[(x,y)] = color
             
             print("Mouse up"+str(coordinates))
 
 
-
     ''' Berechne Zellen '''
     # 2 Infos werden benötigt - eigene Zellen-Zustand und Anzahl an lebendigen Nachbarn
-    for y in range(0, screen_height, block_size):
-        for x in range(0, screen_width, block_size):
-            pass
-
-    # Zeichne die Liste list_cubes
-
-    '''
+    dict_cubes_tmp = deepcopy(dict_cubes)
     for y in range(0, screen_height, block_size):
         for x in range(0, screen_width, block_size):
             status = is_alive(x,y)
-            widt = block_size-(grid_line_size*2)
-            #print(f"x={x}, y={y} - is_alive={status} - {widt}")
-            #time.sleep(0.1)
-            rect = pygame.Rect(x+grid_line_size, y+grid_line_size, block_size-grid_line_size, block_size-grid_line_size)
             if check_live(x,y,status):
                 #print(f"Alive - {x}, {y}")
-                pygame.draw.rect(screen, ORANGE, rect)
+                dict_cubes_tmp[(x,y)] = ORANGE
             else:
-                pygame.draw.rect(screen, BLACK, rect)
-    '''    
+                dict_cubes_tmp[(x,y)] = BLACK
+
+    dict_cubes = dict_cubes_tmp
+    
+
+    # Zeichne die Liste list_cubes
+    for y in range(0, screen_height, block_size):
+        for x in range(0, screen_width, block_size):
+            rect = pygame.Rect(x+grid_line_size, y+grid_line_size, block_size-grid_line_size, block_size-grid_line_size)
+            cube_color = dict_cubes.get((x,y))
+            print(f"{x}, {y} - {cube_color}")
+            pygame.draw.rect(screen, cube_color, rect)
+      
 
 
     ''' Canvas updaten '''
