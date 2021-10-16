@@ -1,12 +1,13 @@
-import pygame, sys, time
+import pygame, sys, time, random
 from pygame.constants import QUIT
 
 screen_width = 600
 screen_height = 600
-block_size = 20 #Set the size of the grid block
+block_size = 10 #Set the size of the grid block
 grid_line_size = 1
+random_blocks = 2000
 
-GREY = (100,100,100)
+GREY = (50,50,50)
 ORANGE = (200,200,0)
 BLACK = (0,0,0)
 
@@ -17,7 +18,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 
 ''' fps einstellen '''
 clock = pygame.time.Clock()
-fps = 100
+fps = 15
 
 def draw_grid():
     for x in range(0, screen_width, block_size):
@@ -25,11 +26,11 @@ def draw_grid():
             rect = pygame.Rect(x, y, block_size, block_size)
             pygame.draw.rect(screen, GREY, rect, grid_line_size)
 
-def calc_block(coordinates,clicked_block_color):
+def set_block(coordinates,clicked_block_color):
     x = int(coordinates[0] / block_size)
     y = int(coordinates[1] / block_size)
-    print("x=" + str(x) + " y=" +str(y))
-    print("  x="+str(int(x*block_size)) + " y="+str(int(y*block_size)))
+    #print("x=" + str(x) + " y=" +str(y))
+    #print("  x="+str(int(x*block_size)) + " y="+str(int(y*block_size)))
     rect = pygame.Rect(int(x*block_size)+grid_line_size, int(y*block_size)+grid_line_size, block_size-grid_line_size, block_size-grid_line_size)
     #rect = pygame.Rect(x*block_size+grid_line_size, y*block_size+grid_line_size, block_size-(grid_line_size*2), block_size-(grid_line_size*2))
     color = change_color(clicked_block_color)
@@ -103,34 +104,47 @@ def check_live(block_coord_x, block_coord_y,status):
             if is_alive(x,y):
                 count_of_living_neighbors += 1
 
-    if status == True and count_of_living_neighbors > 2:
-        return False
+    if status == True:
+        if count_of_living_neighbors > 2:
+            return False
+        elif count_of_living_neighbors == 2 or count_of_living_neighbors == 3:
+            return True
+        elif count_of_living_neighbors > 3:
+            return False
 
-    if status == True and (count_of_living_neighbors == 2 or count_of_living_neighbors == 3):
-        return True
+    else:
+        if count_of_living_neighbors == 3:
+            return True
 
-    if status == True and count_of_living_neighbors > 3:
-        return False
+    return status
 
-    if status == False and count_of_living_neighbors == 3:
-        return True
+def create_r_pentomino():
+    set_block((304,297),BLACK)
+    set_block((304,287),BLACK)
+    set_block((314,287),BLACK)
+    set_block((294,297),BLACK)
+    set_block((304,307),BLACK)
 
-    return False
+def create_random_blocks():
+    amount_of_random_blocks = random.randint(1,random_blocks)
+    for i in range(amount_of_random_blocks):
+        x_random = random.randint(0+grid_line_size,screen_width-grid_line_size)
+        y_random = random.randint(0+grid_line_size,screen_height-grid_line_size)
+        set_block((x_random,y_random),BLACK)
+
 
 ''' Grid Linien zeichnen (nur einmal zeichnen) '''
 draw_grid()
 
-# for test
-calc_block((21,1), BLACK)
-calc_block((21,21), BLACK)
-calc_block((1,21), BLACK)
+#create_random_blocks()
+create_r_pentomino()
 
-calc_block((541,1), BLACK)
-calc_block((561,1), BLACK)
-calc_block((581,1), BLACK)
-calc_block((541,21), BLACK)
-calc_block((561,21), BLACK)
-calc_block((581,21), BLACK)
+
+# for test
+##set_block((21,1), BLACK)
+#set_block((21,21), BLACK)
+#set_block((1,21), BLACK)
+
 
 #calc_block((581,1),BLACK)
 
@@ -149,14 +163,15 @@ while True:
             clicked_block_color = pygame.Surface.get_at(screen,(coordinates[0],coordinates[1]))
             # click auf Grid Linien ignorieren
             if clicked_block_color[0] != GREY[0] and clicked_block_color[0] != GREY[0] and clicked_block_color[0] != GREY[0]:
-                calc_block(coordinates,clicked_block_color)
+                set_block(coordinates,clicked_block_color)
             
-            #print("Mouse up"+str(coordinates))
+            print("Mouse up"+str(coordinates))
 
 
 
     ''' Berechne Zellen '''
     # 2 Infos werden benötigt - eigene Zellen-Zustand und Anzahl an lebendigen Nachbarn
+    
     for y in range(0, screen_height, block_size):
         for x in range(0, screen_width, block_size):
             status = is_alive(x,y)
@@ -169,7 +184,7 @@ while True:
                 pygame.draw.rect(screen, ORANGE, rect)
             else:
                 pygame.draw.rect(screen, BLACK, rect)
-
+    
 
 
     ''' Canvas updaten '''
