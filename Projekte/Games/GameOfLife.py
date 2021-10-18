@@ -8,6 +8,9 @@ block_size = 10 #Set the size of the grid block
 grid_line_size = 1
 random_blocks = 1700
 
+count_generation = 0
+show_hud = True
+
 dict_cubes = {} # { (0,0) : BLACK, (1,1) : ORANGE}
 
 GREY = (50,50,50)
@@ -145,6 +148,12 @@ def update_screen():
             #print(f"{x}, {y} - {cube_color}")
             pygame.draw.rect(screen, cube_color, rect)
 
+def paint_hud():
+    font = pygame.font.SysFont("Arial", 28)    
+    render = font.render(f"Generation: {count_generation}", True, pygame.Color(255,255,255))
+    rect = render.get_rect()
+    screen.blit(render, rect)
+    pygame.display.flip()
 
 ''' Grid Linien zeichnen (nur einmal zeichnen) '''
 draw_grid()
@@ -156,14 +165,24 @@ create_random_blocks()
 
 ''' gameloop'''
 while True:
+    count_generation += 1
+
     ''' Event-Loop'''
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
         if event.type == pygame.KEYDOWN: # alle Tastendrücke abfangen
+            if event.key == pygame.K_q:
+                pygame.quit()
+                sys.exit()
             if event.key == pygame.K_SPACE:
-              print("Space gedrückt")
+              #print("Space gedrückt")
+                if show_hud == True:
+                    show_hud = False
+                elif show_hud == False:
+                    show_hud = True
+
         if event.type == pygame.MOUSEBUTTONUP:
             coordinates = pygame.mouse.get_pos()
             clicked_block_color = pygame.Surface.get_at(screen,(coordinates[0],coordinates[1]))
@@ -182,6 +201,7 @@ while True:
 
 
     # Zeichne die Liste list_cubes
+    draw_grid()
     update_screen()
 
     ''' Berechne Zellen '''
@@ -198,12 +218,15 @@ while True:
                 dict_cubes_tmp[(x,y)] = BLACK
 
     dict_cubes = dict_cubes_tmp
+
+    
+    if show_hud:
+        paint_hud()
     
     ''' Canvas updaten '''
     pygame.display.update()
 
     clock.tick(fps)
-
 
 '''
 Regeln:
