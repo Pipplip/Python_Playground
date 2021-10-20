@@ -96,7 +96,7 @@ def repaint():
         pygame.draw.circle(window, pygame.Color(0, 255, 0), (body[0] - scale/2, body[1] - scale/2), scale/2)
         #pygame.draw.circle(window, pygame.Color(0,255,0), (body[0], body[1]), scale/2)
         
-    pygame.draw.rect(window, pygame.Color(255,0,0), pygame.Rect(food_position[0]-scale/2, food_position[1]-scale/2, scale, scale))
+    pygame.draw.rect(window, pygame.Color(255,0,0), pygame.Rect(food_position[0] - scale/2, food_position[1] - scale/2, scale, scale))
 
 def game_over():
     """ check if game over"""
