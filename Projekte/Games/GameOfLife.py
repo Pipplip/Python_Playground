@@ -11,6 +11,8 @@ random_blocks = 1700
 count_generation = 0
 show_hud = True
 
+pause = False
+
 dict_cubes = {} # { (0,0) : BLACK, (1,1) : ORANGE}
 
 GREY = (50,50,50)
@@ -165,8 +167,6 @@ create_random_blocks()
 
 ''' gameloop'''
 while True:
-    count_generation += 1
-
     ''' Event-Loop'''
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -176,6 +176,11 @@ while True:
             if event.key == pygame.K_q:
                 pygame.quit()
                 sys.exit()
+            if event.key == pygame.K_p:
+                if pause == True:
+                    pause = False
+                elif pause == False:
+                    pause = True
             if event.key == pygame.K_SPACE:
               #print("Space gedrückt")
                 if show_hud == True:
@@ -199,29 +204,30 @@ while True:
             
             print("Mouse up"+str(coordinates))
 
+    if pause == False:
+        count_generation += 1
+        # Zeichne die Liste list_cubes
+        draw_grid()
+        update_screen()
 
-    # Zeichne die Liste list_cubes
-    draw_grid()
-    update_screen()
+        ''' Berechne Zellen '''
+        # 2 Infos werden benötigt - eigene Zellen-Zustand und Anzahl an lebendigen Nachbarn
+        dict_cubes_tmp = deepcopy(dict_cubes)
+        for y in range(0, screen_height, block_size):
+            for x in range(0, screen_width, block_size):
+                status = is_alive(x,y)
+                #print(f"x={x}, y={y}, {dict_cubes_tmp.get((x,y))}")
+                if check_live(x,y,status):
+                    #print(f"Alive - {x}, {y}")
+                    dict_cubes_tmp[(x,y)] = ORANGE
+                else:
+                    dict_cubes_tmp[(x,y)] = BLACK
 
-    ''' Berechne Zellen '''
-    # 2 Infos werden benötigt - eigene Zellen-Zustand und Anzahl an lebendigen Nachbarn
-    dict_cubes_tmp = deepcopy(dict_cubes)
-    for y in range(0, screen_height, block_size):
-        for x in range(0, screen_width, block_size):
-            status = is_alive(x,y)
-            #print(f"x={x}, y={y}, {dict_cubes_tmp.get((x,y))}")
-            if check_live(x,y,status):
-                #print(f"Alive - {x}, {y}")
-                dict_cubes_tmp[(x,y)] = ORANGE
-            else:
-                dict_cubes_tmp[(x,y)] = BLACK
-
-    dict_cubes = dict_cubes_tmp
+        dict_cubes = dict_cubes_tmp
 
     
-    if show_hud:
-        paint_hud()
+        if show_hud:
+            paint_hud()
     
     ''' Canvas updaten '''
     pygame.display.update()
