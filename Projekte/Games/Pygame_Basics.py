@@ -1,7 +1,3 @@
-''' https://www.youtube.com/watch?v=UZg49z76cLw 
-22 min
-'''
-
 import pygame, sys
 from pygame.constants import QUIT
 
@@ -24,25 +20,29 @@ bg_surface = pygame.image.load('assets/background.png').convert()
 bg_surface = pygame.transform.scale2x(bg_surface) # multipliziert das Bild um den Faktor 2
 bg_surface = pygame.transform.scale(bg_surface, (screen_width, screen_height)) # skaliert auf screen Groesse
 
-''' 4 -  gameloop erstellen
-Hier wird das Canvas repainted und die Logik des Spiels ist dort enthalten '''
-while True:
-    ''' 4a: Event-Loop, d.h. Events abfragen z.B. Key Klicks'''
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-        if event.type == pygame.KEYDOWN: # alle Tastendrücke abfangen
-            if event.key == pygame.K_SPACE:
-              print("Space gedrückt")
+def game_loop():
+  ''' 4 -  gameloop erstellen
+  Hier wird das Canvas repainted und die Logik des Spiels ist dort enthalten '''
+  while True:
+      ''' 4a: Event-Loop, d.h. Events abfragen z.B. Key Klicks'''
+      for event in pygame.event.get():
+          if event.type == pygame.QUIT:
+              pygame.quit()
+              sys.exit()
+          if event.type == pygame.KEYDOWN: # alle Tastendrücke abfangen
+              if event.key == pygame.K_SPACE:
+                print("Space gedrückt")
 
-    ''' 3 - Surface auf das Display Surface packen '''
-    screen.blit(bg_surface,(0,0)) # (0,0) Koordinatenursprung
+      ''' 3 - Surface auf das Display Surface packen '''
+      screen.blit(bg_surface,(0,0)) # (0,0) Koordinatenursprung
 
-    ''' 4b: Canvas updaten '''
-    pygame.display.update()
+      ''' 4b: Canvas updaten '''
+      pygame.display.update()
 
-    clock.tick(fps)
+      clock.tick(fps)
+
+if __name__ == "__main__":
+    game_loop()
 
 ''''
 Surfaces:
