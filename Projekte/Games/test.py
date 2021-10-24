@@ -1,3 +1,5 @@
+import random
+
 dict_cubes = {} # { (0,0) : BLACK, (1,1) : ORANGE}
 BLACK = (0,0,0)
 GREY = (10,10,10)
@@ -11,3 +13,6 @@ if cube_1 == BLACK:
 
 print(dict_cubes)
 #print(cube_1)
+
+for i in range(50):
+    print(str(round(random.randint(5, 1080 - 2), -1)))
