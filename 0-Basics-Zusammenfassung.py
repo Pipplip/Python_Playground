@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Zusammenfassungen
 """
@@ -60,16 +61,22 @@ z3 = [31, 32, 33]
 T = zip(z1, z2, z3)
 print(list(T)) # [(11,21,31), (12,22,32), (13,23,33)]
 
+# Liste auslesen
+for entry in l3:
+    print(entry)
 
 # Stapelspeicher (stack) für Listen: Vorstellbar wie ein Bücherregal
 # Auf Stapel legen (push/append), nehmen (pop) und schauen was ganz oben liegt (peek)
-#    append() oder '+': am Ende des Stapels hinzufügen - append bevorzugen, da performanter
-#    insert(): an beliebige Stelle des Stapels hinzufügen
-#    remove(): entfernen eines Elements
+#    append() oder '+': am Ende des Stapels/Liste hinzufügen - append bevorzugen, da performanter // l3.append("e") oder l3 += ['e', 'f']
+#    insert(): an beliebige Stelle des Stapels hinzufügen z.B. l3.insert(1, 'c') // füge an Index 1 -> 'c' hinzu. Index 1 wird nicht überschrieben
+#    remove(): entfernen eines Elements z.B. l3.remove('b')
 #    pop(): letzte Element nehmen und ausschneiden
-#    pop(i): Element i nehmen und ausschneiden
+#    pop(i): Element i nehmen und ausschneiden // Der Vorteil von pop() ist, dass wir als Rückgabewert den Inhalt des gelöschten letzten Listeneintrags bekommen und damit weiterarbeiten können 
 #    extend(t): an eine Liste mehrere Elemente anhängen
 #    index(): Gibt die Stelle des Elements im Stack zurück
+#    del(): löschen der Liste. z.B. del(l3)
+#    count(): Gibt die Anzahl eines bestimmten Elements zurück z.B. l3.count("a")
+#    len(): Gibt die Anzahl aller Elemente zurück z.B. len(l3)
 
 # Sortierung
 stack5 = [6,8,7,3,8,4]
@@ -406,3 +413,19 @@ w = tk.Label(root, text="Hello Tkinter!")
 w.pack()
 
 root.mainloop()
+
+
+"""
+Modul OS - um auf Betriebssystem Funktionen zuzugreifen, z.B. Dateien in einem Pfad auflisten
+"""
+import os
+
+print(os.name) # Ausgabe BS: nt = Windows, posix 0 = Linux, Mac
+print(os.getcwd()) # Arbeitsverzeichnis auslesen
+print(os.environ) # Systemvariablen auslesen
+print(os.listdir()) # Inhalt des Verzeichnisses ausgeben
+os.rmdir(Pfad) # Verzeichnis löschen
+os.remove(Datei) # Datei löschen
+print(os.path.isfile('datei.pdf')) # prüfen ob Datei
+print(os.path.isdir('datei.pdf')) # prüfen ob Verzeichnis
+os.rename() # umbenennen

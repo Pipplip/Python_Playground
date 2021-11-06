@@ -1,0 +1,91 @@
+SELECT * FROM tabelle;
+
+SELECT DISTINCT * FROM tabelle; --Keine doppelte Werte zurückgeben:
+
+SELECT * FROM tabelle WHERE Abteil = 'IT' AND punkte > 2000;
+
+SELECT * FROM tabelle ORDER BY SpalteGeld ASC;  --niedrigster Wert oben
+
+SELECT * FROM tabelle WHERE Abteil IN ('IT', 'Merketing');
+anstatt: ...WHERE Abteil='IT' OR Abteil='Marketing';
+
+SELECT * FROM tabelle WHERE geld BETWEEN 100 AND 200;
+
+SELECT * FROM tabelle WHERE Vorname LIKE 'M%';
+
+SELECT * FROM tabelle AS tabelle_neu;
+
+SELECT SUM(Geld) AS Gesamtbetrag FROM tabelle;
+
+SELECT Abteil, SUM(Geld) FROM tabelle GROUP BY Abteil;
+
+INSERT INTO tabelle(Abteil, Geld) VALUES ('IT', 200);
+
+DELETE FROM tabelle WHERE name = 'John';
+
+DROP TABLE tabelle; --löscht Tabelle
+
+TRUNCATE TABLE tabelle; --löscht alle Einträge der Tabelle
+
+CREATE TABLE tabelle{
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	name VARCHAR(40) NOT NULL,
+	geld INTEGER,
+	preis FLOAT,
+	zeit TIME,
+	datum DATE
+
+	oder :
+
+	id INTEGER,
+	PRIMARY KEY(id);
+}  
+
+CREATE TABLE tabelle{
+	kunden_ID INTEGER,
+	Arbeiter_ID INTEGER,
+	PRIMARY KEY (kunden_ID),
+	FOREIGN KEY (Arbeiter_ID) references kunde(ID); -- Fremdschlüssel: verweist auf Primärschlüssel einer anderen Tabelle (kunde)
+}
+
+JOINS:
+	Daten abfragen von 2 oder mehr Tabellen.
+	Keys wichtig.
+
+
+Bsp
+	Personen:                           Bestellungen:
+	p_ID - NName - Vname - Stadt        o_ID - BNummer p_ID
+	----------------------------        -------------------
+	 1     Maier   Maria   Köln          1     778     1
+	 2     Krupp   Horst   Aachen        2     567     1
+	 3     Beck    Julia   Trier         3     123     3
+
+
+Alle Personen auflisten, di etwas bestellen:
+	SELECT Personen.NName, Bestellungen.BNummer
+	FROM Personen
+	JOIN Bestellungen
+	ON Personen.p_ID = Bestellungen.p_ID
+	ORDER BY Personen.NNAME;
+
+Ergebnis:
+	NName  BNummer
+	Beck   123
+	Maier  778
+	Maier  567
+
+Ergebnis LEFT JOIN:
+	NName  BNummer
+	Beck   123
+	Maier  778
+	Maier  567
+	Krupp   - 
+
+
+
+
+
+
+
+
