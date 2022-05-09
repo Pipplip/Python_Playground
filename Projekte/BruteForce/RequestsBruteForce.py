@@ -15,17 +15,16 @@ url = 'https://www. the domain/'
 #print(rGet.status_code) # status code
 #print(rGet.headers) # response headers
 
-def encodeBase64(message):
-    message_bytes = message.encode('utf-8')
+def encodeBase64(message,encoding="utf-8"):
+    message_bytes = message.encode(encoding)
     base64_bytes = base64.b64encode(message_bytes)
-    base64_message = base64_bytes.decode('utf-8')
+    base64_message = base64_bytes.decode(encoding)
     return base64_message
 
-def decodeBase64(message):
-    #base64_message = 'UHl0aG9uIGlzIGZ1bg=='
-    base64_bytes = message.encode('utf-8')
+def decodeBase64(message,encoding="utf-8"):
+    base64_bytes = message.encode(encoding)
     message_bytes = base64.b64decode(base64_bytes)
-    message = message_bytes.decode('utf-8')
+    message = message_bytes.decode(encoding)
     return message
 
 
@@ -66,9 +65,7 @@ if __name__ == "__main__":
     users = open(user_namelist_file).readlines()
     passwords = open(user_namelist_file).readlines()
     for usr in users:
-        #print(usr)
         for pwd in passwords:
-            #print(pwd)
             send_request(usr, pwd)
             #time.sleep(random.randint(1,1000)/10)
             time.sleep(1)
