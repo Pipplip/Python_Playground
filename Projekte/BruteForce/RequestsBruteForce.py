@@ -45,7 +45,7 @@ def send_request(username, password):
     #print(str(headers))
 
     # GET requests with headers
-    rGet = requests.get(url, allow_redirects=False, headers=headers)
+    rGet = requests.get(url, allow_redirects=False, headers=headers, timeout=5)
     
     #print(rGet.text) # gibt html zurueck
     status_code = rGet.status_code
@@ -54,11 +54,9 @@ def send_request(username, password):
 
     if str(status_code).startswith("2"):
         print(f"SUCCESS: Credentials found - {username}:{password}")
-        #return True
         exit()
     else:
         print(f"FAULT: {username}:{password}")
-        #return False
 
 # main Funktion
 if __name__ == "__main__":
