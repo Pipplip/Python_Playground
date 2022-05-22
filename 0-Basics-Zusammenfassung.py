@@ -429,3 +429,15 @@ os.remove(Datei) # Datei löschen
 print(os.path.isfile('datei.pdf')) # prüfen ob Datei
 print(os.path.isdir('datei.pdf')) # prüfen ob Verzeichnis
 os.rename() # umbenennen
+
+"""
+PIP
+"""
+# Version prüfen: pip --version
+# Installierte Packages anzeigen: pip list
+# Hilfe: pip help
+# Upgrade: python -m pip install --upgrade pip
+# Downgrade: python -m pip install pip==18.0 (or any other version)
+# Packages installieren z.B.: pip install numpy
+# Packages updaten: pip install --upgrade numpy
+# Packages deinstallieren: pip uninstall <package_name>
