@@ -35,6 +35,17 @@ print(len(string1)) # 5
 print(string1[1:5]) # slicing -> allo
 
 """ ++++++++++++++++++++++++++++++++++++++++++
+print
+"""
+name = "name"
+age = 22
+print(name + ":" + str(age))
+print(name, ':', age)
+print(f'{name} : {age}') # formatted string
+print('%s : %s' % (name, age))
+print('{} : {}'.format(name, age))
+
+""" ++++++++++++++++++++++++++++++++++++++++++
 Listen [a,b,c]
 Listen = veränderbar also z.B. liste[0] = 1
 """
