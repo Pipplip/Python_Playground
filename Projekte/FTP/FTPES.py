@@ -1,4 +1,3 @@
-from fileinput import filename
 from ftplib import FTP_TLS
 
 def init_connection():
