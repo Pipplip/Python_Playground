@@ -17,9 +17,13 @@ def rotate_video(degree):
 def show_video(clip):
     clip.preview(fps = 20)
 
+def save_video(clip, name):
+    clip.write_videofile(name)
+
 if __name__ == "__main__":
     print("start")
     video = rotate_video(90)
+    save_video(video, "D:/Desktop/A22_copy.mp4")
     show_video(video)
     print("end")
 
