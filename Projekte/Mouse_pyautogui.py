@@ -4,6 +4,7 @@ import ctypes
 import threading
 import time
 import sys
+import random
 from pynput import keyboard
 
 """ Mouse mouse Thread class """
@@ -15,7 +16,8 @@ class MouseMoveThread(threading.Thread):
 
     def run(self):
         print("Starte MouseMoveThread ", self.id)
-        self.circle()
+        #self.circle()
+        self.random_movement()
 
     def get_screen_center(self):
         user32 = ctypes.windll.user32
@@ -41,6 +43,23 @@ class MouseMoveThread(threading.Thread):
                 else:
                     sys.exit()
                     break
+
+    def random_movement(self):
+        #a,b = pyautogui.position()
+        a,b = self.get_screen_center()
+        r = 200      
+
+        global stop_app
+
+        while 1:
+            
+            if stop_app == False:
+                x = random.randint(1,r) + a
+                y = random.randint(1,r) + b
+                pyautogui.moveTo(x, y, duration = 0.05)
+            else:
+                sys.exit()
+                break
             
 
 
