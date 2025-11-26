@@ -38,7 +38,7 @@ import sys
 print(sys.builtin_module_names)
 #print(dir(sys))
 
-import TestModul
+import basic_details.TestModul as TestModul
 x = 2
 y = TestModul.malZwei(x)
 print(y)
