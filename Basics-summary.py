@@ -6,30 +6,47 @@ Zusammenfassungen
 ''' mehrzeiliger Kommentar '''
 # einzelner Kommentar
 
-"""
-Datentypen
-"""
+# ===============================================================
+#                          Datentypen
+# ===============================================================
 # Text Type: 	    str
 # Numeric Types: 	int, float, complex
 # Sequence Types: 	list, tuple, range
 # Mapping Type: 	dict
-# Set Types: 	    set, frozenset
-fs = frozenset({"apple", "banana", "cherry"})
+# Set Types: 	    set, frozenset    Bsp: fs = frozenset({"apple", "banana", "cherry"})
 # Boolean Type: 	bool
 # Binary Types: 	bytes, bytearray, memoryview
-mb = b"Hello" # bytes
-mba = bytearray(5) # bytearray
-mmv = memoryview(bytes(5))
+### mb = b"Hello" # bytes
+### mba = bytearray(5) # bytearray
+### mmv = memoryview(bytes(5))
 # None Type: 	    NoneType
 n = None
 
+# ===============================================================
+#                          None Type
+# ===============================================================
+# None ist ein spezieller Datentyp in Python, der einen Nullwert oder das Fehlen eines Werts repräsentiert.
+# Es ist ein eigenständiger Typ namens NoneType und wird häufig verwendet, 
+# um anzuzeigen, dass eine Variable keinen Wert hat oder dass eine Funktion nichts zurückgibt. 
+# ===============================================================
+nt = None
+print(type(nt)) # <class 'NoneType'>
 
-"""
-Variablen
-"""
+# ===============================================================
+#                           Variablen
+# ===============================================================
 i = 42
 j = 2.34
 print(type(i)) # <class 'int'>
+t = True
+false = False
+
+a , b, c = 1, 2.5, "Hallo" # Mehrfachzuweisung
+print(a, b, c)  # 1 2.5 Hallo
+
+g = h = 3 # Mehrfachzuweisung gleicher Wert
+print(g, h)  # 3 3
+
 # Operatoren:
 # (+) Summe a + b
 # (-) Differenz a - b
@@ -40,30 +57,42 @@ print(type(i)) # <class 'int'>
 # (abs) Betrag von a abs(a)
 # (**) Potenzieren a^b
 
-t = True
-false = False
-
-""" ++++++++++++++++++++++++++++++++++++++++++
-Strings
-"""
+# ===============================================================
+#                        Strings
+# ===============================================================
 string1 = "Hallo"
 print(string1[0]) # H
 print(len(string1)) # 5
 
 print(string1[1:5]) # slicing -> allo
 
-# format strings
-age = 22
-print(f"Ich bin {age} Jahre alt.")
-
-# string methoden - ein paar beispiele
+# ===== Nützliche String Methoden, Beispiele =====
 # strip() - entfernt Leerzeichen am Anfang und Ende
 # lower() / upper() - macht alles klein / groß
 # split() - teilt String in Liste auf (Standard: Leerzeichen)
 
-""" ++++++++++++++++++++++++++++++++++++++++++
-print
-"""
+# ===== format strings =====
+age = 22
+print(f"Ich bin {age} Jahre alt.")
+# Aufruf einer Funktion in einem format string
+def get_years(age=22):
+    return age 
+print(f"Ich bin {get_years(22)} Jahre alt.")
+
+## Modifiers von format strings
+# Dezimalstellen
+number = 3.14159
+print(f"Pi auf 2 Nachkommastellen: {number:.2f}") # Pi auf 2 Nachkommastellen: 3.14
+# Padding
+name = "Max"
+print(f"Name mit Padding: {name:>10}") # Name mit Padding:        Max
+# Binär, Oktal, Hexadezimal
+num = 42
+print(f"Binär: {num:b}, Oktal: {num:o}, Hexadezimal: {num:x}") # Binär: 101010, Oktal: 52, Hexadezimal: 2a
+
+# ===============================================================
+#                       print
+# ===============================================================
 name = "name"
 age = 22
 print(name + ":" + str(age))
@@ -72,11 +101,14 @@ print(f'{name} : {age}') # formatted string
 print('%s : %s' % (name, age))
 print('{} : {}'.format(name, age))
 
-""" ++++++++++++++++++++++++++++++++++++++++++
-Listen [a,b,c]
-Listen = veränderbar also z.B. liste[0] = 1
-Listen sind geordnet, veränderbar, erlauben doppelte Einträge und besutzen indizes
-"""
+# ===============================================================
+#                       Listen [a,b,c] - Arrays
+# ===============================================================
+# Listen = veränderbar also z.B. liste[0] = 1
+# Listen sind geordnet, veränderbar, erlauben doppelte Einträge und besutzen indizes
+# Werte können verschiedene Datentypen sein
+# Arrays gibt es in Python nicht, stattdessen benutzt man Listen oder das Modul array
+# ===============================================================
 l1 = [3,99,"Ein Text"]
 l2 = [ 42, 65, [45, 89], 88 ]
 print(l2[2]) # [45,89]
@@ -116,13 +148,14 @@ while i < len(l3):
     print(l3[i])
     i += 1  
 
-# List comprehension
+# ===== List Comprehension =====
 # Syntax:
 # newlist = [expression for item in iterable if condition == True]
 [print(entry) for entry in l3] # Auslesen einer Liste
 
 newlist = [x for x in l3 if 'a' in x] # neue Liste mit Elementen die 'a' enthalten
 
+# ===== List Methoden =====
 # Stapelspeicher (stack) für Listen: Vorstellbar wie ein Bücherregal
 # Auf Stapel legen (push/append), nehmen (pop) und schauen was ganz oben liegt (peek)
 #    append() oder '+': am Ende des Stapels/Liste hinzufügen - append bevorzugen, da performanter // l3.append("e") oder l3 += ['e', 'f']
@@ -157,23 +190,28 @@ print(z) # 3
 if 2 in l7:
     print("2 ist in der Liste")
 
-""" ++++++++++++++++++++++++++++++++++++++++++
-Tupel (1,2,3,"Text")
-Tupel = unveränderbar, z.B. tupel[0] = 1 -> Exception
-Nur lesen erlaubt
-Tupel sind geordnet, unveränderbar, erlauben doppelte Einträge und benutzen indizes
-Iteration über Tupel und andere Funktionalität wie bei Listen
-"""
+# ===============================================================
+#                   Tupel (1,2,3,"Text")
+# ===============================================================
+# Tupel = unveränderbar, z.B. tupel[0] = 1 -> Exception
+# Nur lesen erlaubt
+# Tupel sind geordnet, unveränderbar, erlauben doppelte Einträge und benutzen indizes
+# Werte in Tupeln können verschiedene Datentypen sein
+# Iteration über Tupel und andere Funktionalität wie bei Listen
+# ===============================================================
 t1 = (3,99,"Ein Text")
 
-""" ++++++++++++++++++++++++++++++++++++++++++
-Dictionary
-Entspricht einer Map in Java: key-value mapping
-
-Dictionaries sind veränderbar, ungeordnet, keine doppelten Einträge (keys müssen eindeutig sein)
-
-map = {"key1":"value1","key2":"value2"}
-"""
+# ===============================================================
+#                       Dictionary
+# ===============================================================
+# Entspricht einer Map in Java: key-value mapping
+# 
+# Dictionaries sind veränderbar, ungeordnet, keine doppelten Einträge (keys müssen eindeutig sein)
+# Die keys in einem Dictionary müssen unveränderbar (immutable) sein, z.B. Strings, Zahlen oder Tupel.
+# Die Values können beliebige Datentypen haben und auch veränderbar sein.
+# 
+# map = {"key1":"value1","key2":"value2"}
+# ===============================================================
 map2 = {"key1" : "value1", "key2" : "value2", "key3" : "value3"}
 map2["key3"] = "value3a" # value ändern
 map2.get("key1") # value1
@@ -198,12 +236,14 @@ map2copy = map2.copy()
 # oder
 map2copy2 = dict(map2)
 
-# nested dictionaries Beispiel
+# ===== Nested Dictionaries =====
 map3 = {
     "person1": {"name":"Max", "age":22},
     "person2": {"name":"Anna", "age":23}
-}
+} # entspricht dict(key, dict(key,value))
 print (map3["person1"]["name"]) # Max
+nestedDic = map3["person2"]
+print(nestedDic["age"]) # 23
 
 # Schleife über nested dictionaries
 for person, info in map3.items():
@@ -212,7 +252,7 @@ for person, info in map3.items():
         print("  ", key, ": ", info[key])
 
 
-# nützliche Methoden:
+# ===== Nützliche Methoden =====
 # kopieren: map2.copy(), bei verschachtelter Dic. deepcopy
 # dic.clear() - Dic leeren
 # dic.get("key1") - liefert value zu key1
@@ -224,18 +264,21 @@ for person, info in map3.items():
 # dic.setdefault() - add key-value Paar (nur wenn noch nicht vorhanden)
 # dic.update({"key3":"value3"}) - Dic wird erweitert oder überschrieben
 
-""" ++++++++++++++++++++++++++++++++++++++++++
-Set: Mengen. Ein Element kann in einem Set nicht doppelt vorkommen
-Veränderliche Objekte wie Listen sind als Sets nicht erlaubt
+# ===============================================================
+#                       Sets
+# ===============================================================
+# Set: Mengen. Eine Sammlung von einzigartigen Elementen.
+# Veränderliche Objekte wie Listen sind als Sets nicht erlaubt
+# 
+# Sets sind ungeordnet, veränderbar, keine doppelten Einträge
+# 
+# set = {'Stadt1','Stadt2'}
+# ===============================================================
 
-Sets sind ungeordnet, veränderbar, keine doppelten Einträge
-
-set = {'Stadt1','Stadt2'}
-"""
 set1 = {'Hamburg','Müchnen','Frankfurt'}
 set2 = set(('Paris', 'Paris', 'Lyon')) # mit Konstruktor
 
-# Nützliche Methoden:
+# ===== Nützliche Methoden =====
 # set1.add('Stuttgart') - Elemente hinzufügen
 # set.clear() - Set leeren
 # set.copy() 
@@ -253,23 +296,9 @@ set2 = set(('Paris', 'Paris', 'Lyon')) # mit Konstruktor
 fs1 = frozenset({'A','B','C'})
 # -> fs1.add('D') # führt zu Exception
 
-""" ++++++++++++++++++++++++++++++++++++++++++
-Eingaben: Eingabe wird immer als String interpretiert. Casten möglich
-"""
-eingabe = input("Ihre Eingabe? ")
-# Eingabe casten
-ein1 = int(input("Ihr Alter? "))
-print(ein1)
-print(type(ein1)) # <class 'int'>
-
-# Eingabe von Listen
-liste = eval(input("Liste? "))
-# EIngabe z.B. ["rot","grün"]
-print(liste)
-
-""" ++++++++++++++++++++++++++++++++++++++++++
-Verzweigungen
-"""
+# ===============================================================
+#                       Verzweigungen
+# ===============================================================
 if a == b:
     print()
 else:
@@ -298,14 +327,16 @@ print("A") if x > y else print("B") # Kurzform if-else
 # Assign values based on conditions
 bigger = x if a > b else b
 
-# Operatoren
+# ===== Operatoren =====
 # == -> 42 == 42 True, [1,2]==[1,2] True
 # != -> 42 != 43 True, {1,2] != 17 True
 # < / > -> 4 < 12 True, "Ti" < "Tisc" True
 # <= / >= -> 4 <= 4 True
 # and, or, not -> Verbinden von Verknüpfungen
 
-# pass Statement - Platzhalter
+# ===== pass Statement - Platzhalter =====
+# pass wird verwendet wenn eine Anweisung syntaktisch erforderlich ist, aber kein Code ausgeführt werden soll.
+# z.B. in leeren Schleifen, Funktionen oder Klassen
 if x > y:
     pass # Wenn nichts passieren soll
 
@@ -326,9 +357,9 @@ match day:
         # default
         print("Anderer Tag")
 
-""" ++++++++++++++++++++++++++++++++++++++++++
-Schleifen (while, foreach)
-"""
+# ===============================================================
+#                   Schleifen (while, foreach)
+# ===============================================================
 # while
 i = 0
 while i < 4:
@@ -343,39 +374,10 @@ languages = ["a","b"]
 for lan in languages:
     print(lan)
 
-""" ++++++++++++++++++++++++++++++++++++++++++
-Datei = Daten + Kartei
+# ===============================================================
+#                       Funktionen
+# ===============================================================
 
-Inhalt einer Datei ist aus einer eindimesionalen Anneinanderreihung von Bits,
-die normalerweise in Byte-Blöcke zusammengefasst interpretiert werden.
-Bytes erhalten erst durch Anwendungsprogramme und das Bestriebssystem eine Bedeutung.
-"""
-# Text aus Datei lesen
-fobj = open("lorem.txt", "r")
-for line in fobj:
-    print(line.rstrip())
-fobj.close()
-
-# auf Datenstruktur speichern
-lorem = open("lorem.txt").readlines()
-
-# in String speichern
-loremString = open("lorem.txt").read()
-
-# Schreiben in eine Datei
-input = open("lorem.txt", "r")
-output = open("lorem2.txt", "w")
-counter = 0
-for line in input:
-    counter += 1
-    output_line = "{0:>3s} {1:s}\n".format(str(counter),line.rstrip())
-    output.write(output_line)
-input.close()
-output.close()
-
-""" ++++++++++++++++++++++++++++++++++++++++++
-Funktionen
-"""
 def sayHello(name):
     """ function prints 'sayHello' """
     return "Hello " + name
@@ -419,7 +421,7 @@ def func_with_args(title, *args, **kwargs):
 
 func_with_args(1,2,3, name="Max", age=22)
 
-# Decorators - Funktionen die andere Funktionen erweitern
+# ===== Decorators - Funktionen die andere Funktionen erweitern ======
 def changeCase(original_function): # decorator function
     def wrapper_function(name):
         return original_function(name).upper()
@@ -431,11 +433,14 @@ def display(name):
 
 print(display())
 
-""" ++++++++++++++++++++++++++++++++++++++++++
-Lambda Funktionen = anonyme Funktionen
-Eine lambda Funktion kann beliebig viele Argumente annehmen, aber nur einen Ausdruck haben.
-"""
-#Syntax: lambda argumente: ausdruck
+# ===============================================================
+#                       Lambda Funktionen
+# ===============================================================
+# Lambda Funktionen = anonyme Funktionen
+# Eine lambda Funktion kann beliebig viele Argumente annehmen, aber nur einen Ausdruck haben.
+# Syntax: lambda argumente : ausdruck
+# ===============================================================
+
 x= lambda a, b : a + b
 print(x(5, 3)) # 8
 
@@ -459,9 +464,111 @@ print(squared_points) # [1, 4, 9, 16, 25]
 even_points = list(filter(lambda x: x % 2 == 0, points))
 print(even_points) # [2, 4] 
 
-""" ++++++++++++++++++++++++++++++++++++++++++
-Ausnahmebehandlung
+# ===============================================================
+#                          Rekursion
+# ===============================================================
+# Eine Funktion, die sich selbst aufruft
+# 
+# Eine Rekursive Funktion benötigt:
+# 1. Basisfall (Abbruchbedingung)
+# 2. Rekursiver Fall (Aufruf der Funktion mit verändertem Parameter)
+# ===============================================================
+
+def countdown(n):
+  if n <= 0: # Basisfall
+    print("Done!")
+  else: # Rekursiver Fall
+    print(n)
+    countdown(n - 1)
+
+countdown(5) 
+
+# ===============================================================
+#                       Generatoren
+# ===============================================================
+# Generatoren sind spezielle Funktionen, die einen Iterator zurückgeben.
+# Sie ermöglichen es, Werte nacheinander zu erzeugen, anstatt alle auf einmal im Speicher zu halten.
+# Dies ist besonders nützlich bei der Arbeit mit großen Datenmengen oder unendlichen Sequenzen.
+# yield ist ähnlich wie return, aber anstatt die Funktion zu beenden, speichert es den aktuellen Zustand der Funktion und gibt den Wert zurück.
+# ===============================================================
+def my_generator():
+    yield 1
+    yield 2
+    yield 3 
+
+gen = my_generator()
+
+for value in gen:
+    print(value) # 1 2 3
+
+# oder
+gen2 = my_generator()
+print(next(gen2)) # 1
+print(next(gen2)) # 2
+print(next(gen2)) # 3
+
+# ===============================================================
+#                           Range
+# ===============================================================
 """
+Eine range Funktion erzeugt eine Folge von Zahlen.
+Return ist eine unveränderbare Sequenz von Zahlen, die häufig in for-Schleifen verwendet wird.
+Syntax: range(start, stop, step)
+- start: Anfangswert (inklusive). Standard ist 0.
+- stop: Endwert (exklusive).
+- step: Schrittweite. Standard ist 1.
+
+"""
+for i in range(0, 10, 2):
+    print(i) # 0 2 4 6 8
+
+for j in range(5): # start=0, step=1
+    print(j) # 0 1 2 3 4
+
+# Ranges sind immutable und nicht direkt anzeigbar, deshalb kann man sie in eine Liste umwandeln
+print(list(range(3, 10, 3))) # [3, 6, 9]
+
+r = range(1, 10, 2) # 1,3,5,7,9
+print(6 in r) # False
+print(len(r)) # 5
+
+# ===============================================================
+#                           Iterators
+# ===============================================================
+# Ein Iterator ist ein Objekt, das eine Sequenz von Werten durchlaufen kann.
+# Ein Iterator implementiert die Methoden __iter__() und __next__().
+# ===============================================================
+"""
+Lists, tuples, dictionaries, and sets sind alle iterable objects und können in einer for-Schleife verwendet werden.
+Selbst Strings sind iterable objects.
+Alle diese Objekte haben die Methode __iter__(), die einen Iterator zurückgibt.
+"""
+mytuple = ("apple", "banana", "cherry")
+myit = iter(mytuple)
+print(next(myit))
+print(next(myit))
+print(next(myit))
+
+# wenn man eine eigene Klasse als Iterator verwenden will, muss man die Methoden __iter__() und __next__() implementieren
+class MyNumbers:    
+  def __iter__(self):
+    self.a = 1
+    return self
+
+  def __next__(self):
+    x = self.a
+    self.a += 1
+    return x
+  
+myclass = MyNumbers()
+myiter = iter(myclass)
+print(next(myiter)) # 1
+print(next(myiter)) # 2
+
+# ===============================================================
+#                       Ausnahmebehandlung
+# ===============================================================
+
 try:
     f = open('integers.txt')
     s = f.readline()
@@ -480,9 +587,15 @@ except:
 finally:
     print("Ich werde immer ausgegeben.")
 
-""" ++++++++++++++++++++++++++++++++++++++++++
-Klassen
+# Throw einer Exception
+x = -1
+if x < 0:
+  raise Exception("Sorry, keine Zahlen kleiner als 0 erlaubt") 
 
+# ===============================================================
+#                          Klassen
+# ===============================================================
+"""
 Alle Klassen in Python erben von Object
 __init__ entspricht dem Konstruktor
 __del__ entspricht einem Destruktor (werden selten benutzt, weil man sich um das Aufräumen nicht kümmern muss)
@@ -496,6 +609,20 @@ __name -> private - von aussen nicht sichtbar/benutzbar
 statische Attribute (static in Java) = Klassenattribute (Eigenschaften, die für die ganze Klasse gelten und nicht nur für ein Objekt)
 Wird unter der Klassendefinition deklariert. Hier Gesetze(...) oder counter
 Statische Methoden sind an eine Klasse gebunden und nicht an eine Instanz
+
+Felder werden in Python nicht deklariert, sondern bei der Initialisierung in __init__ erstellt.
+Diese sind immer public und können von aussen verändert werden.
+Beispielaufruf:
+r = Roboter("Robo1", 2000)
+
+self ist ähnlich wie this in Java und verweist auf die aktuelle Instanz der Klasse.
+Wenn eine Methode z.B. ein Feld der Klasse verändern will, muss self davor stehen.
+Beispiel:
+def AendereName(self, name):
+    self.name = name
+
+So wird das Feld name der Klasse mit dem Parameter name überschrieben.
+
 """
 
 # from robots import Roboter # importieren einer Klasse Roboter von Datei robots.py
@@ -553,41 +680,169 @@ if __name__ == "__main__":
     print(Roboter.AnzahlRoboter()) # 1
     print(Roboter.Gesetze)
 
-# Vererbung
+# ===== Vererbung =====
 # class Angestellter(Person): # in Python können Klassen von mehreren Klassen erben z.B. class Angestellter(Person, Gattung)
 
-""" ++++++++++++++++++++++++++++++++++++++++++
-Persistente Speicherung
+# ===============================================================
+#                       Module
+# ===============================================================
 """
-import pickle
-# Speichern
-#cities = ["Berlin", "Amsterdam", "München"]
-#fh = open("serializedData.pkl","wb")
-#pickle.dump(cities, fh)
-#fh.close
+Module sind Dateien mit Python Code, die Funktionen und Klassen enthalten. Eine Art Code-Bibliothek.
+Module können in anderen Modulen oder Skripten importiert und wiederverwendet werden.
+Module kann eine Sammlung von Funktionen, Klassen und Variablen sein, die thematisch zusammengehören.
 
-# laden
-fo = open("serializedData.pkl","rb")
-staedte = pickle.load(fo)
-fo.close
-print(staedte)
+Beispiel:
+# mymodule.py
+def greet(name):
+    return "Hello, " + name
 
-# Shelve - ähnlich wie ein Bücherregal
-# Das Regal ist eine Datei und die Bücher sind unsere Daten
-# Empfohlen bei Dictionaries
-import shelve
-s = shelve.open("MyShelve") # wenn es die Datei nicht gibt, wird diese angelegt
-s["street"] = "main street"
-s["city"] = "London"
+# main.py
+import mymodule
+# oder
+from mymodule import greet
+# oder
+import mymodule as mm
 
-for key in s:
-    print(key)
+print(mymodule.greet("Alice"))
 
-s.close()
+Neben Funktionen, Klassen können auch Variablen in Modulen definiert werden.
+Und in einem anderen Modul importiert und verwendet werden.
 
+"""
+import math
+print(dir()) # listet alle eingebauten Module auf
+print(dir(math)) # listet alle Funktionen und Attribute des Moduls math auf
+print(help("math")) # Hilfe zu einem Modul
+print(help("os")) # Hilfe zu einem Modul
 
-""" ++++++++++++++++++++++++++++++++++++++++++
-Threads und Locks
+# ===============================================================
+#                       DateTime Modul
+# ===============================================================
+import datetime
+
+x = datetime.datetime.now()
+print(x) # aktuelles Datum und Uhrzeit
+print(x.year) # Jahr
+
+y = datetime.datetime(2018, 6, 1) # bestimmtes Datum erstellen
+print(y)
+# Formatieren von Datum und Uhrzeit mit strftime()
+print(y.strftime("%B")) # Monat Name
+print(y.strftime("%Y-%m-%d")) # Jahr-Monat-Tag
+print(y.strftime("%A")) # Wochentag
+print(y.strftime("%H:%M:%S")) # Stunde:Minute:Sekunde
+# viele mehr ...
+
+# ===============================================================
+#                         JSON
+# ===============================================================
+"""
+Python hat ein eingebautes Modul namens json, um mit JSON-Daten zu arbeiten.
+"""
+import json
+
+# ===== Von JSON zu Python =====
+x =  '{ "name":"John", "age":30, "city":"New York"}'
+# parse x:
+y = json.loads(x)
+# Ergebnis ist ein Python dictionary:
+print(y["age"]) 
+
+# ===== Von Python zu JSON =====
+x2 = {"name": "John", "age": 30,"city": "New York"}
+y2 = json.dumps(x2) # covert into JSON string
+print(y2)
+# dumps hat viele optionale Parameter wie z.B. Einrückung und andere Formatierungen
+# Beispiel mit Einrückung
+y3 = json.dumps(x2, indent=4)
+
+# ===== JSON Datei einlesen =====
+with open('data.json', 'r') as f:
+    data = json.load(f)
+    print(data)
+
+# ===== JSON Datei schreiben =====
+with open('data2.json', 'w') as f:
+    json.dump(x2, f)
+
+# ===============================================================
+#                RegEx - Reguläre Ausdrücke
+# ===============================================================
+import re
+# Suche nach dem Muster "ai" in "The rain in Spain"
+txt = "The rain in Spain"
+x = re.search("ai", txt)
+print(x) # <re.Match object; span=(5, 7), match='ai'>
+# Suche nach allen Wörtern die mit "S" beginnen
+x2 = re.findall(r"\bS\w+", txt)
+print(x2) # ['Spain']
+# Ersetze alle Leerzeichen mit "9"
+x3 = re.sub(r"\s", "9", txt)
+print(x3) # The9rain9in9Spain
+# Teile den Text an jedem Leerzeichen
+x4 = re.split(r"\s", txt)
+print(x4) # ['The', 'rain', 'in', 'Spain']
+
+# ===============================================================
+#                   Arbeiten mit Dateien
+# ===============================================================
+# Datei = Daten + Kartei
+#
+# Inhalt einer Datei ist aus einer eindimesionalen Anneinanderreihung von Bits,
+# die normalerweise in Byte-Blöcke zusammengefasst interpretiert werden.
+# Bytes erhalten erst durch Anwendungsprogramme und das Bestriebssystem eine Bedeutung.
+#
+# modes: r (read), w (write), a (append), r+ (read and write), b (binary), t (text, default)
+# ===============================================================
+
+# Datei öffnen und lesen
+# close wird bei "with open" nicht gebraucht
+with open("lorem.txt", "r") as f:
+    content = f.read()
+    print(content)
+
+# Text aus Datei lesen
+# Beispiel Datei: lorem.txt
+fobj = open("lorem.txt", "r")
+for line in fobj:
+    print(line.rstrip()) # rstrip() entfernt Zeilenumbruch
+fobj.close()
+
+# auf Datenstruktur speichern
+lorem = open("lorem.txt").readlines()
+
+# in String speichern
+loremString = open("lorem.txt").read()
+
+# Schreiben in eine Datei
+input = open("lorem.txt", "r")
+output = open("lorem2.txt", "w")
+counter = 0
+for line in input:
+    counter += 1
+    output_line = "{0:>3s} {1:s}\n".format(str(counter),line.rstrip())
+    output.write(output_line)
+input.close()
+output.close()
+
+# einfacher
+with open("demofile.txt", "a") as f:
+  f.write("Now the file has more content!")
+
+# Eine Datei löschen
+import os
+if os.path.exists("demofile.txt"):
+  os.remove("demofile.txt")
+else:
+    print("Die Datei existiert nicht")
+
+# Verzeichnis löschen
+os.rmdir("myfolder") # nur leere Verzeichnisse
+
+# ===============================================================
+#                   Threads und Locks
+# ===============================================================
+"""
 MultiThreading = für GUIs, I/O. Shared memory. Python verwaltet Threading
 Multiprocessing = eigener CPU Kern und Speicherbereich (schneller als Threading). System verwaltet Processing
 
@@ -619,10 +874,59 @@ t2.start()
 # if t1.isAlive(): # gibt aus ob der Thread noch existiert
 print("Beende Main")
 
+# ===============================================================
+#                       Eingaben - User Input
+# ===============================================================
+# Eingaben: Eingabe wird immer als String interpretiert. Type-cast möglich
+# ===============================================================
 
-""" ++++++++++++++++++++++++++++++++++++++++++
-Umwandlung in exe Datei mit PyInstaller
+# Einfache Eingabe
+eingabe = input("Ihre Eingabe? ")
+# Eingabe casten
+ein1 = int(input("Ihr Alter? "))
+print(ein1)
+print(type(ein1)) # <class 'int'>
 
+# Eingabe von Listen
+liste = eval(input("Liste? "))
+# EIngabe z.B. ["rot","grün"]
+print(liste)
+
+# ===============================================================
+#                Persistente Speicherung
+# ===============================================================
+
+# Pickle - Serialisierung von Objekten in Dateien
+import pickle
+# Speichern
+#cities = ["Berlin", "Amsterdam", "München"]
+#fh = open("serializedData.pkl","wb")
+#pickle.dump(cities, fh)
+#fh.close
+
+# laden
+fo = open("serializedData.pkl","rb")
+staedte = pickle.load(fo)
+fo.close
+print(staedte)
+
+# Shelve - ähnlich wie ein Bücherregal
+# Das Regal ist eine Datei und die Bücher sind unsere Daten
+# Empfohlen bei Dictionaries
+import shelve
+s = shelve.open("MyShelve") # wenn es die Datei nicht gibt, wird diese angelegt
+s["street"] = "main street"
+s["city"] = "London"
+
+for key in s:
+    print(key)
+
+s.close()
+
+# ===============================================================
+#           Umwandlung in exe Datei mit PyInstaller
+# ===============================================================
+"""
 Install: pip install pyinstaller
 In Konsole pyinstaller datei.py
 
@@ -633,8 +937,10 @@ Danach in Console:
 auto-py-to-exe
 """
 
-""" ++++++++++++++++++++++++++++++++++++++++++
-GUIs
+# ===============================================================
+#                       GUI: Modul tkinter
+# ===============================================================
+"""
 tkinter - wird mit Python bereits geliefert, muss nicht extra installiert werden
 """
 import tkinter as tk
@@ -647,9 +953,10 @@ w.pack()
 root.mainloop()
 
 
-"""
-Modul OS - um auf Betriebssystem Funktionen zuzugreifen, z.B. Dateien in einem Pfad auflisten
-"""
+# ===============================================================
+#                           Modul OS 
+# - um auf Betriebssystem Funktionen zuzugreifen, z.B. Dateien in einem Pfad auflisten
+# ===============================================================
 import os
 
 print(os.name) # Ausgabe BS: nt = Windows, posix 0 = Linux, Mac
@@ -662,9 +969,9 @@ print(os.path.isfile('datei.pdf')) # prüfen ob Datei
 print(os.path.isdir('datei.pdf')) # prüfen ob Verzeichnis
 os.rename() # umbenennen
 
-"""
-PIP
-"""
+# ===============================================================
+#                           Modul  PIP
+# ===============================================================
 # Version prüfen: pip --version
 # Installierte Packages anzeigen: pip list
 # Hilfe: pip help
