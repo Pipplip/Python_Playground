@@ -7,6 +7,24 @@ Zusammenfassungen
 # einzelner Kommentar
 
 """
+Datentypen
+"""
+# Text Type: 	    str
+# Numeric Types: 	int, float, complex
+# Sequence Types: 	list, tuple, range
+# Mapping Type: 	dict
+# Set Types: 	    set, frozenset
+fs = frozenset({"apple", "banana", "cherry"})
+# Boolean Type: 	bool
+# Binary Types: 	bytes, bytearray, memoryview
+mb = b"Hello" # bytes
+mba = bytearray(5) # bytearray
+mmv = memoryview(bytes(5))
+# None Type: 	    NoneType
+n = None
+
+
+"""
 Variablen
 """
 i = 42
@@ -34,6 +52,15 @@ print(len(string1)) # 5
 
 print(string1[1:5]) # slicing -> allo
 
+# format strings
+age = 22
+print(f"Ich bin {age} Jahre alt.")
+
+# string methoden - ein paar beispiele
+# strip() - entfernt Leerzeichen am Anfang und Ende
+# lower() / upper() - macht alles klein / groß
+# split() - teilt String in Liste auf (Standard: Leerzeichen)
+
 """ ++++++++++++++++++++++++++++++++++++++++++
 print
 """
@@ -48,6 +75,7 @@ print('{} : {}'.format(name, age))
 """ ++++++++++++++++++++++++++++++++++++++++++
 Listen [a,b,c]
 Listen = veränderbar also z.B. liste[0] = 1
+Listen sind geordnet, veränderbar, erlauben doppelte Einträge und besutzen indizes
 """
 l1 = [3,99,"Ein Text"]
 l2 = [ 42, 65, [45, 89], 88 ]
@@ -59,7 +87,12 @@ if not l1:
 
 # Listen kopieren
 l3 = ["a","b","c","d"]
-l4 = l3[:]
+l3copy1 = l3[:]
+# oder
+l3copy2 = list(l3)
+# oder
+l3copy3 = l3.copy()
+
 # verschachtelte Listen kopieren
 from copy import deepcopy
 l5 = ["a","b",["ac","ad"]]
@@ -76,6 +109,20 @@ print(list(T)) # [(11,21,31), (12,22,32), (13,23,33)]
 for entry in l3:
     print(entry)
 
+for i in range(len(l3)):
+    print(l3[i])
+
+while i < len(l3):
+    print(l3[i])
+    i += 1  
+
+# List comprehension
+# Syntax:
+# newlist = [expression for item in iterable if condition == True]
+[print(entry) for entry in l3] # Auslesen einer Liste
+
+newlist = [x for x in l3 if 'a' in x] # neue Liste mit Elementen die 'a' enthalten
+
 # Stapelspeicher (stack) für Listen: Vorstellbar wie ein Bücherregal
 # Auf Stapel legen (push/append), nehmen (pop) und schauen was ganz oben liegt (peek)
 #    append() oder '+': am Ende des Stapels/Liste hinzufügen - append bevorzugen, da performanter // l3.append("e") oder l3 += ['e', 'f']
@@ -83,36 +130,95 @@ for entry in l3:
 #    remove(): entfernen eines Elements z.B. l3.remove('b')
 #    pop(): letzte Element nehmen und ausschneiden
 #    pop(i): Element i nehmen und ausschneiden // Der Vorteil von pop() ist, dass wir als Rückgabewert den Inhalt des gelöschten letzten Listeneintrags bekommen und damit weiterarbeiten können 
-#    extend(t): an eine Liste mehrere Elemente anhängen
-#    index(): Gibt die Stelle des Elements im Stack zurück
+#    extend(t): an eine Liste mehrere Elemente anhängen, z.B. eine weitere Liste // l3.extend(['e','f'])
+#    index(): Gibt die Stelle des Elements im Stack zurück z.B. l3.index("c")
 #    del(): löschen der Liste. z.B. del(l3)
 #    count(): Gibt die Anzahl eines bestimmten Elements zurück z.B. l3.count("a")
 #    len(): Gibt die Anzahl aller Elemente zurück z.B. len(l3)
+#    clear(): löscht alle Elemente in der Liste z.B. l3.clear()
+#    copy(): erstellt eine Kopie der Liste z.B. l3copy = l3.copy()
+#    reverse(): dreht die Reihenfolge der Liste um z.B. l3.reverse()
+#    sort(): sortiert die Liste z.B. l3.sort()
+#    + : zwei Listen zusammenfügen z.B. l4 = l3 + ['e','f']
+#    * : Liste mehrfach hintereinander anfügen z.B. l4 = l3 * 3
+z3.append(34) # z3 = [31,32,33,34]
 
 # Sortierung
 stack5 = [6,8,7,3,8,4]
 print(sorted(stack5)) # [3, 4, 6, 7, 8, 8]
 
+# unpack
+l7 = [1,2,3]
+x, y, z = l7
+print(x) # 1
+print(y) # 2
+print(z) # 3
+
+if 2 in l7:
+    print("2 ist in der Liste")
+
 """ ++++++++++++++++++++++++++++++++++++++++++
 Tupel (1,2,3,"Text")
 Tupel = unveränderbar, z.B. tupel[0] = 1 -> Exception
 Nur lesen erlaubt
+Tupel sind geordnet, unveränderbar, erlauben doppelte Einträge und benutzen indizes
+Iteration über Tupel und andere Funktionalität wie bei Listen
 """
 t1 = (3,99,"Ein Text")
 
 """ ++++++++++++++++++++++++++++++++++++++++++
 Dictionary
 Entspricht einer Map in Java: key-value mapping
+
+Dictionaries sind veränderbar, ungeordnet, keine doppelten Einträge (keys müssen eindeutig sein)
+
 map = {"key1":"value1","key2":"value2"}
 """
 map2 = {"key1" : "value1", "key2" : "value2", "key3" : "value3"}
-map2["key3"] = "value3a"
+map2["key3"] = "value3a" # value ändern
 map2.get("key1") # value1
-"value1" in map2 # True
+if "value1" in map2: # True
+    print("enthalten")
+
+# Schleife über Dictionary
+for key in map2:
+    print("key: ", key, "value: ", map2[key])
+
+for key, value in map2.items():
+    print("key: ", key, "value: ", value)
+
+for val in map2.values():
+    print("value: ", val)
+
+for key in map2.keys():
+    print("key: ", key)
+
+# copy
+map2copy = map2.copy()
+# oder
+map2copy2 = dict(map2)
+
+# nested dictionaries Beispiel
+map3 = {
+    "person1": {"name":"Max", "age":22},
+    "person2": {"name":"Anna", "age":23}
+}
+print (map3["person1"]["name"]) # Max
+
+# Schleife über nested dictionaries
+for person, info in map3.items():
+    print("Person: ", person)
+    for key in info: # info ist wieder ein Dictionary
+        print("  ", key, ": ", info[key])
+
 
 # nützliche Methoden:
 # kopieren: map2.copy(), bei verschachtelter Dic. deepcopy
+# dic.clear() - Dic leeren
+# dic.get("key1") - liefert value zu key1
+# dic.fromkeys(["key1","key2"], "defaultValue") - neues Dic mit keys und default value
 # dic.items() - liefert alle key.value Paare
+# dic.values() - liefert alle values
 # dic.keys()  - liefert alle keys
 # dic.pop("key1") - löschen eines keys
 # dic.setdefault() - add key-value Paar (nur wenn noch nicht vorhanden)
@@ -122,15 +228,19 @@ map2.get("key1") # value1
 Set: Mengen. Ein Element kann in einem Set nicht doppelt vorkommen
 Veränderliche Objekte wie Listen sind als Sets nicht erlaubt
 
+Sets sind ungeordnet, veränderbar, keine doppelten Einträge
+
 set = {'Stadt1','Stadt2'}
 """
 set1 = {'Hamburg','Müchnen','Frankfurt'}
-set2 = set(('Paris', 'Paris', 'Lyon'))
+set2 = set(('Paris', 'Paris', 'Lyon')) # mit Konstruktor
 
 # Nützliche Methoden:
 # set1.add('Stuttgart') - Elemente hinzufügen
 # set.clear() - Set leeren
-# set.copy()
+# set.copy() 
+# set1.union(set2) - Vereinigung zweier Mengen (alle Elemente aus set1 und set2)
+# set1.update(set2) - fügt alle Elemente von set2 in set1 ein
 # set1.difference(set2) - Differenz zweier Mengen (set1 - set2 geht auch)
 # set1.difference_update(set2) - entfernt alle Elemente einer Menge aus einer anderen Menge, die gleich sind
 # set.discard("Stuttgart") oder set.remove("Stuttgart") - entfernen eines Elements
@@ -138,6 +248,10 @@ set2 = set(('Paris', 'Paris', 'Lyon'))
 # set1.isdisjoint(set2) - True, wenn zwei Sets keine übereinstimmende Einträge haben (also leere Schnittmenge)
 # set1.issubset(set2) - True, wenn Untermenge von set1 in set2 vorhanden ist
 # set1.issuperset(set2) - True, wenn Obermenge von set1 in set2 vorhanden ist, x > y x enthält mindestens ein Element von y
+
+# frozenset - unveränderbares Set
+fs1 = frozenset({'A','B','C'})
+# -> fs1.add('D') # führt zu Exception
 
 """ ++++++++++++++++++++++++++++++++++++++++++
 Eingaben: Eingabe wird immer als String interpretiert. Casten möglich
@@ -168,12 +282,49 @@ elif c == d:
 else:
     print()
 
+# short hand if: beispiel
+x = 42
+y = 24
+min = x if x < y else y # Zuordnung je nach Bedingung
+# dies ist das gleiche wie:
+#if x < y:
+#    min = x
+#else:
+#    min = y
+print(min)
+
+print("A") if x > y else print("B") # Kurzform if-else
+
+# Assign values based on conditions
+bigger = x if a > b else b
+
 # Operatoren
 # == -> 42 == 42 True, [1,2]==[1,2] True
 # != -> 42 != 43 True, {1,2] != 17 True
 # < / > -> 4 < 12 True, "Ti" < "Tisc" True
 # <= / >= -> 4 <= 4 True
 # and, or, not -> Verbinden von Verknüpfungen
+
+# pass Statement - Platzhalter
+if x > y:
+    pass # Wenn nichts passieren soll
+
+def f():
+    pass # leere Funktion
+# pass kann man vergleichen mit einem leeren Block {}
+
+# match-case (wie switch-case in Java)
+day = 2
+match day:
+    case 1:
+        print("Montag")
+    case 2:
+        print("Dienstag")
+    case 3 | 4 | 5:
+        print("Mittwoch, Donnerstag oder Freitag")
+    case _:
+        # default
+        print("Anderer Tag")
 
 """ ++++++++++++++++++++++++++++++++++++++++++
 Schleifen (while, foreach)
@@ -233,10 +384,80 @@ def sayHello(name):
 def sayHello2(name="everybody"):
     return "Hello" + name
 
+# mit expliziter Angabe des Rückgabetyps und der Parametertypen
+def my_sum(val1: int, val2: int) -> int:
+    return val1 + val2
+
 # wenn man globale Variablen in einer Funktion benutzen will, muss man diese angeben
+s = "Globaler String"
 def f():
     global s
     print(s)
+    s = "Globaler String verändert"
+    print(s) # print: Globaler String verändert
+
+# scopes - LEGB rule
+x = "global"
+def outer():
+  x = "enclosing"
+  def inner():
+    x = "local"
+    print("Inner:", x)
+  inner()
+  print("Outer:", x)
+outer()
+print("Global:", x) # Inner: local, outer: enclosing, global: global
+
+# Neben Parameter für Funktionen kann man auch Argumente *args und **kwargs benutzen
+# wird verwenden wenn man nicht weiß wie viele Parameter übergeben werden
+def func_with_args(title, *args, **kwargs):
+    print("title: ", title) # normaler Parameter sind auch erlaubt
+    for arg in args: # args ist ein Tupel
+        print("arg: ", arg) # (1,2,3)
+    for key in kwargs:
+        print("key: ", key, "value: ", kwargs[key]) # kwargs ist ein Dictionary {name:"Max", age:22}
+
+func_with_args(1,2,3, name="Max", age=22)
+
+# Decorators - Funktionen die andere Funktionen erweitern
+def changeCase(original_function): # decorator function
+    def wrapper_function(name):
+        return original_function(name).upper()
+    return wrapper_function
+
+@changeCase # decorator anwenden
+def display(name):
+    return "Display function executed: " + name
+
+print(display())
+
+""" ++++++++++++++++++++++++++++++++++++++++++
+Lambda Funktionen = anonyme Funktionen
+Eine lambda Funktion kann beliebig viele Argumente annehmen, aber nur einen Ausdruck haben.
+"""
+#Syntax: lambda argumente: ausdruck
+x= lambda a, b : a + b
+print(x(5, 3)) # 8
+
+y = lambda s: s.upper()
+print(y("hallo")) # HALLO
+
+z = lambda s: s[0]
+print(z("hallo")) # h
+
+def myfunc(n):
+  return lambda a : a * n
+mydoubler = myfunc(2)
+print(mydoubler(11)) # 22
+
+# Lambda functions are commonly used with built-in functions like map(), filter(), and sorted()
+points = [1, 2, 3, 4, 5]
+squared_points = list(map(lambda x: x**2, points))
+print(squared_points) # [1, 4, 9, 16, 25]
+
+# with filter
+even_points = list(filter(lambda x: x % 2 == 0, points))
+print(even_points) # [2, 4] 
 
 """ ++++++++++++++++++++++++++++++++++++++++++
 Ausnahmebehandlung
