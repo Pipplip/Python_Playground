@@ -6,3 +6,17 @@ Collection of tutorials and small projects.
 Projects can be found in /Projekte and Python basics in more detail in /basic_details
 
 If you want to use "uv", please visit my "uv" repository.
+
+## Execute python script
+
+```bash
+python Basics-summary.py
+```
+
+## Execute module
+```bash
+export PYTHONPATH="$PYTHONPATH:$(pwd)"
+python -m projekte.<project-name>
+```
+__Info:__ ```__init__.py``` needs to be created in sub directories of each project if it is started as module.
+
