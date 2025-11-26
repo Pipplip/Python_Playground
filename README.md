@@ -16,7 +16,11 @@ python Basics-summary.py
 ## Execute module
 ```bash
 export PYTHONPATH="$PYTHONPATH:$(pwd)"
-python -m projekte.<project-name>
+python -m <directoy>.<project-name>
+
+# Bsp:
+python -m TestPaket.a
+
 ```
 __Info:__ ```__init__.py``` needs to be created in sub directories of each project if it is started as module.
 
