@@ -667,7 +667,12 @@ class Roboter:
     def __str__(self):
         return "Name: " + self.name
 
-
+# ===== Vererbung =====
+# class Marken_Roboter(Roboter): # in Python können Klassen von mehreren Klassen erben z.B. class Marken_Roboter(Roboter, Gattung)
+class Marken_Roboter(Roboter):
+    def __init__(self, name, baujahr, marke):
+        super().__init__(name, baujahr) # Aufruf des Konstruktors der Oberklasse
+        self.marke = marke
 
 # main Aufrufe
 if __name__ == "__main__":
@@ -680,8 +685,10 @@ if __name__ == "__main__":
     print(Roboter.AnzahlRoboter()) # 1
     print(Roboter.Gesetze)
 
-# ===== Vererbung =====
-# class Angestellter(Person): # in Python können Klassen von mehreren Klassen erben z.B. class Angestellter(Person, Gattung)
+    # Vererbung Beispiel
+    mr = Marken_Roboter("MarkenRobo", 2020, "MarkeX")
+    mr.SageHallo()
+    print(mr.marke)
 
 # ===============================================================
 #                       Module
